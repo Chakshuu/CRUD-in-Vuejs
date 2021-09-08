@@ -7,15 +7,13 @@
         placeholder="user.fname"
         v-model="user.fname"
         type="text"
-        required
-      />
+        required/>
       <label>Last Name:</label>
       <input
         placeholder="user.lname"
         v-model="user.lname"
         type="text"
-        required
-      />
+        required/>
       <label>Age</label>
       <input placeholder="user.age" v-model="user.age" type="number" required />
       <label>Gender</label>
