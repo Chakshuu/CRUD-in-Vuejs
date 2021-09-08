@@ -1,38 +1,18 @@
 <template>
   <div>
-    <ListUser></ListUser>
-    
+    <router-view></router-view>
   </div>
-</template> 
-
+</template>
 
 <script>
+  export default {
+    components: {},
 
-import ListUser from "./components/userList.vue";
-export default {
-  components: {
-    //AddUser,
-    ListUser
-  },
-
-  data() {
-    return {
-      //newUser: null,
-      //addIsOpen: false
-    };
-    //console.log(newUser)
-  },
-  methods: {
-    // addUser(user) {
-    //   this.newUser = user;
-    // },
-    // openAdd(val) {
-    //   this.addIsOpen=val
-    // }
-  },
-};
+    data() {
+      return {};
+    },
+    methods: {},
+  };
 </script>
 
-<style>
-
-</style>
+<style></style>

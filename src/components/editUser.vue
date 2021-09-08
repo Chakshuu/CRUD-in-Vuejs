@@ -3,111 +3,105 @@
     <h2 class="header">Edit the User</h2>
     <form>
       <label>First Name:</label>
-      <input v-model="newUser.fname" type="text" required/>
+      <input
+        placeholder="user.fname"
+        v-model="user.fname"
+        type="text"
+        required
+      />
       <label>Last Name:</label>
-      <input v-model="newUser.lname" type="text" required/>
+      <input
+        placeholder="user.lname"
+        v-model="user.lname"
+        type="text"
+        required
+      />
       <label>Age</label>
-      <input v-model="newUser.age" type="number" required />
+      <input placeholder="user.age" v-model="user.age" type="number" required />
       <label>Gender</label>
-      <select v-model="newUser.gender">
-          <option>Male</option>
-          <option>Female</option>
-          <option>Others</option>
-          <!-- <option v-for="sex in sexes">{{sex}}</option> -->
+      <select user.gender v-model="user.gender">
+        <option>Male</option>
+        <option>Female</option>
+        <option>Others</option>
       </select>
     </form>
-    
+
     <div class="button_property">
-      <button :disabled="isDisabled()"  @click="edit" class="button">SUBMIT</button>
+      <button :disabled="isDisabled()" @click="edit" class="button">
+        SUBMIT
+      </button>
     </div>
-    
   </div>
 </template>
 
-
-
 <script>
-export default {
+  export default {
+    data() {
+      return {
+        editUser: "",
+        user: null,
+      };
+    },
 
-    //props:['users'],
-    
-    data(){
-        return{
-            newUser:{
-                fname:"",
-                lname:"",
-                age:"",
-                gender:""
-            }
+    methods: {
+      isDisabled() {
+        if (
+          this.user.fname != "" &&
+          this.user.lname != "" &&
+          this.user.age != "" &&
+          this.user.gender != ""
+        ) {
+          return false;
+        } else {
+          return true;
         }
-
-    
-  },
-
-  methods: {
-    isDisabled() {
-      if(this.newUser.fname!="" && this.newUser.lname!="" && this.newUser.age!="" && this.newUser.gender!=""){
-        return false;
-    }
-    else {
-      return true;
-    }
-
+      },
+      edit() {
+        this.user.id = this.editId;
+        this.$router.push({ name: "user-list", params: { editUser: this.user } });
+      },
     },
-    edit() {
-        this.$emit('userEdited', this.newUser)
-        //this.users.$set(index,{fname:this.newUser.fname,lname:this.newUser.lname,age:this.newUser.age,gender:this.newUser.gender})
-        //this.$emit('userStored', this.newUser)
-        this.$emit('addClose','list')
-        this.fname=""
-        this.lname=""
-        this.age=""
-        this.gender=""
+    mounted() {
+      this.editId = this.$route.params.editId;
+      this.user = this.$route.params.editUser;
     },
-    
-  }
-
-
-      
-};
+  };
 </script>
 
-
 <style>
-
-#edit-user *{
+  #edit-user * {
     box-sizing: border-box;
-}
+  }
 
-#edit-user {
+  #edit-user {
     margin: 20px auto;
-    max-width:500px;
-}
-label {
+    max-width: 500px;
+  }
+  label {
     display: block;
     margin: 20px 0 10px;
-}
-input,select{
+  }
+  input,
+  select {
     display: block;
     width: 100%;
     padding: 8px;
-}
-#preview {
+  }
+  #preview {
     padding: 10px 20px;
     border: 1px dotted black;
     margin: 20px 0;
-}
-h3 {
+  }
+  h3 {
     margin-top: 10px;
-}
-.button_property {
-  text-align: center;
-  margin-top: 10px;
-}
+  }
+  .button_property {
+    text-align: center;
+    margin-top: 10px;
+  }
 
-.button {
-  text-align: center;
-  padding: 10px 40px;
-}
-
+  .button {
+    text-align: center;
+    padding: 10px 40px;
+  }
 </style>
