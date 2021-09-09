@@ -7,15 +7,13 @@
         placeholder="user.fname"
         v-model="user.fname"
         type="text"
-        required
-      />
+        required/>
       <label>Last Name:</label>
       <input
         placeholder="user.lname"
         v-model="user.lname"
         type="text"
-        required
-      />
+        required/>
       <label>Age</label>
       <input placeholder="user.age" v-model="user.age" type="number" required />
       <label>Gender</label>
@@ -27,7 +25,7 @@
     </form>
 
     <div class="button_property">
-      <button :disabled="isDisabled()" @click="edit" class="button">
+      <button :disabled="isDisabled()" @click="updateUser" class="button">
         SUBMIT
       </button>
     </div>
@@ -35,37 +33,37 @@
 </template>
 
 <script>
-  export default {
-    data() {
-      return {
-        editUser: "",
-        user: null,
-      };
-    },
+export default {
+  data() {
+    return {
+      editUser: '',
+      user: null,
+    };
+  },
 
-    methods: {
-      isDisabled() {
-        if (
-          this.user.fname != "" &&
-          this.user.lname != "" &&
-          this.user.age != "" &&
-          this.user.gender != ""
-        ) {
-          return false;
-        } else {
-          return true;
-        }
-      },
-      edit() {
-        this.user.id = this.editId;
-        this.$router.push({ name: "user-list", params: { editUser: this.user } });
-      },
+  methods: {
+    isDisabled() {
+      if (
+        this.user.fname !== ''
+        && this.user.lname !== ''
+        && this.user.age !== ''
+        && this.user.gender !== ''
+      ) {
+        return false;
+      }
+      return true;
     },
-    mounted() {
-      this.editId = this.$route.params.editId;
-      this.user = this.$route.params.editUser;
+    updateUser() {
+      this.user.id = this.editId;
+      this.$router.push({ name: 'user-list' });
+      this.$store.commit('updateUser', this.user);// , params: { updatedUser: this.user }
     },
-  };
+  },
+  mounted() {
+    this.editId = this.$route.params.updateId;
+    this.user = this.$route.params.updateUser;
+  },
+};
 </script>
 
 <style>

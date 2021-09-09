@@ -24,12 +24,14 @@
                 <button
                   @click.prevent="openEdit(user)"
                   type="button"
-                  class="c-button  c-button--edit">
+                  class="c-button  c-button--edit"
+                >
                   Edit
                 </button>
                 <button
                   @click.prevent="deleteUser(index)"
-                  class="c-button  c-button--delete">
+                  class="c-button  c-button--delete"
+                >
                   Delete
                 </button>
               </form>
@@ -47,68 +49,51 @@
 </template>
 
 <script>
-  export default {
-    components: {},
+// import {mapState} from 'vuex'
+export default {
+  components: {},
 
-    data() {
-      return {
-        mode: "list",
-        editId: "",
-        users: [
-          {
-            id: 1,
-            fname: "Sam",
-            lname: "John",
-            age: "25",
-            gender: "Male",
-          },
-          {
-            id: 2,
-            fname: "Joe",
-            lname: "Root",
-            age: "28",
-            gender: "Male",
-          },
-        ],
-      };
-    },
+  data() {
+    return {
+      users: null,
+    };
+  },
 
-    methods: {
-      openAdd(val) {
-        this.mode = val;
-      },
-      addUser(user) {
-        this.users.push(user);
-      },
-      deleteUser(index) {
-        this.users.splice(index, 1);
-      },
-      openEdit(user) {
-        this.$router.push({
-          name: "edit-user",
-          params: { editId: user.id, editUser: user },
-        });
-      },
-      editUser(user) {
-        for (let i = 0; i < this.users.length; i++) {
-          if (this.users[i].id == user.id) {
-            this.$set(this.users, i, user);
-          }
-        }
-      },
+  methods: {
+    openAdd(val) {
+      this.mode = val;
     },
-    mounted() {
-      const user = this.$route.params.user;
-      if (user) {
-        this.addUser(user);
-      }
+    addUser() {
+      this.$router.push({ name: 'add-user' });
+    },
+    /// list refresh
+    // getter
+    deleteUser(index) {
+      this.users.splice(index, 1);
+    },
+    openEdit(user) {
+      this.$router.push({
+        name: 'edit-user',
+        params: { updateId: user.id, updateUser: user },
+      });
+    },
+  },
+  created() {
+    // ...mapState(['users'])
+    this.users = this.$store.state.USER_STORE.users;
+  },
+  // mounted() {
+  //   const { user } = this.$route.params;
+  //   if (user) {
+  //     this.addUser(user);
+  //   }
 
-      const editUser = this.$route.params.editUser;
-      if (editUser) {
-        this.editUser(editUser);
-      }
-    },
-  };
+  //   const { updatedUser } = this.$route.params;
+  //   if (updatedUser) {
+  //     this.updateUser(updatedUser);
+  //   }
+  // },
+};
 </script>
 
 <style>

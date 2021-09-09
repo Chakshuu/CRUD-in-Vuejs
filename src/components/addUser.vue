@@ -25,46 +25,46 @@
 </template>
 
 <script>
-  export default {
-    data() {
-      return {
-        newUser: {
-          id: Math.random(),
-          fname: "",
-          lname: "",
-          age: "",
-          gender: "",
-        },
-      };
+export default {
+  data() {
+    return {
+      newUser: {
+        id: Math.random(),
+        fname: '',
+        lname: '',
+        age: '',
+        gender: '',
+      },
+    };
+  },
+
+  methods: {
+    isDisabled() {
+      if (
+        this.newUser.fname !== ''
+          && this.newUser.lname !== ''
+          && this.newUser.age !== ''
+          && this.newUser.gender !== ''
+      ) {
+        return false;
+      }
+      return true;
     },
 
-    methods: {
-      isDisabled() {
-        if (
-          this.newUser.fname != "" &&
-          this.newUser.lname != "" &&
-          this.newUser.age != "" &&
-          this.newUser.gender != ""
-        ) {
-          return false;
-        } else {
-          return true;
-        }
-      },
+    storeUser() {
+      this.$router.push({
+        name: 'user-list',
+        // params: { user: this.newUser },
+      });
+      this.$store.commit('storeUser', this.newUser);
 
-      storeUser() {
-        this.$router.push({
-          name: "user-list",
-          params: { user: this.newUser },
-        });
-
-        this.fname = "";
-        this.lname = "";
-        this.age = "";
-        this.gender = "";
-      },
+      this.fname = '';
+      this.lname = '';
+      this.age = '';
+      this.gender = '';
     },
-  };
+  },
+};
 </script>
 
 <style>
